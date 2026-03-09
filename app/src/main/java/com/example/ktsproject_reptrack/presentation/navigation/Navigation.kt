@@ -1,8 +1,9 @@
 package com.example.ktsproject_reptrack.presentation.navigation
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,15 +11,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ktsproject_reptrack.presentation.screens.LoginScreen
 import com.example.ktsproject_reptrack.presentation.screens.MainScreen
+import com.example.ktsproject_reptrack.presentation.screens.NutritionScreen
 import com.example.ktsproject_reptrack.presentation.screens.StartScreen
 import com.example.ktsproject_reptrack.presentation.viewmodel.LoginViewModel
 import com.example.ktsproject_reptrack.presentation.viewmodel.MainViewModel
-import com.example.ktsproject_reptrack.presentation.viewmodel.LoginUiEvent
+import com.example.ktsproject_reptrack.presentation.viewmodel.NutritionViewModel
 
 sealed class Screen(val route: String) {
     data object Start : Screen("start")
     data object Login : Screen("login")
     data object Main : Screen("main")
+    data object Nutrition : Screen("nutrition")
 }
 
 @Composable
@@ -28,7 +31,10 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Start.route
+        startDestination = Screen.Start.route,
+        enterTransition = { androidx.compose.animation.EnterTransition.None },
+        exitTransition = { androidx.compose.animation.ExitTransition.None },
+        modifier = Modifier.safeDrawingPadding()
     ) {
         composable(Screen.Start.route) {
             StartScreen(
@@ -43,19 +49,11 @@ fun AppNavigation(
         composable(Screen.Login.route) {
             val viewModel: LoginViewModel = viewModel()
 
-            LaunchedEffect(Unit) {
-                viewModel.events.collect { event ->
-                    when (event) {
-                        is LoginUiEvent.LoginSuccess -> {
-                            navController.navigate(Screen.Main.route) {
-                                popUpTo(Screen.Login.route) { inclusive = true }
-                            }
-                        }
-                    }
-                }
-            }
-
-            LoginScreen(viewModel = viewModel)
+            LoginScreen(
+                viewModel = viewModel,
+                navController = navController,
+                onFinish = onFinish
+            )
         }
 
         composable(Screen.Main.route) {
@@ -67,7 +65,26 @@ fun AppNavigation(
 
             MainScreen(
                 viewModel = viewModel,
-                onBackClick = onFinish
+                onBackClick = onFinish,
+                onNavigateToNutrition = {
+                    navController.navigate(Screen.Nutrition.route)
+                }
+            )
+        }
+
+        composable(Screen.Nutrition.route) {
+            val viewModel: NutritionViewModel = viewModel()
+
+            BackHandler {
+                navController.popBackStack()
+            }
+
+            NutritionScreen(
+                viewModel = viewModel,
+                onBackClick = { navController.popBackStack() },
+                onNavigateToMain = {
+                    navController.popBackStack()
+                }
             )
         }
     }

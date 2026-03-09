@@ -12,12 +12,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class LoginUiState(
-    val username: String = "",
+    val email: String = "",
     val password: String = "",
-    val isLoginButtonActive: Boolean = false,
     val isLoading: Boolean = false,
     val error: String? = null
-)
+) {
+    val isLoginButtonActive: Boolean
+        get() = email.isNotBlank() && password.isNotBlank()
+}
 
 sealed class LoginUiEvent {
     data object LoginSuccess : LoginUiEvent()
@@ -33,21 +35,17 @@ class LoginViewModel(
     private val _events = MutableSharedFlow<LoginUiEvent>()
     val events: SharedFlow<LoginUiEvent> = _events.asSharedFlow()
 
-    fun onUsernameChanged(username: String) {
+    fun onEmailChanged(email: String) {
         _uiState.value = _uiState.value.copy(
-            username = username,
-            error = null,
-            isLoginButtonActive = username.isNotBlank() &&
-                    _uiState.value.password.isNotBlank()
+            email = email,
+            error = null
         )
     }
 
     fun onPasswordChanged(password: String) {
         _uiState.value = _uiState.value.copy(
             password = password,
-            error = null,
-            isLoginButtonActive = _uiState.value.username.isNotBlank() &&
-                    password.isNotBlank()
+            error = null
         )
     }
 
@@ -56,7 +54,7 @@ class LoginViewModel(
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
             val result = loginRepository.login(
-                username = _uiState.value.username,
+                username = _uiState.value.email,
                 password = _uiState.value.password
             )
 

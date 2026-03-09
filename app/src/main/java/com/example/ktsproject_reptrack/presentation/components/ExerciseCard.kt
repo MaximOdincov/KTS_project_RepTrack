@@ -24,9 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.ktsproject_reptrack.R
 import com.example.ktsproject_reptrack.domain.entities.Exercise
 import com.example.ktsproject_reptrack.domain.entities.ExerciseType
 
@@ -36,8 +38,7 @@ fun ExerciseCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -51,7 +52,6 @@ fun ExerciseCard(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Box(
                 modifier = Modifier
                     .size(64.dp)
@@ -126,10 +126,12 @@ fun ExerciseCard(
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
-                            text = when (exercise.type) {
-                                ExerciseType.WEIGHT_REPS -> "Вес/Повторы"
-                                ExerciseType.TIME_DISTANCE -> "Время/Дистанция"
-                            },
+                            text = stringResource(
+                                when (exercise.type) {
+                                    ExerciseType.WEIGHT_REPS -> R.string.exercises_weight_reps
+                                    ExerciseType.TIME_DISTANCE -> R.string.exercises_time_distance
+                                }
+                            ),
                             style = MaterialTheme.typography.labelSmall,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                             color = MaterialTheme.colorScheme.secondary
