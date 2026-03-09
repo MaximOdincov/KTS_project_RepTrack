@@ -15,7 +15,7 @@ class ExercisesRepository {
             listOf(
                 Exercise(
                     id = "1",
-                    name = "Жим штанги лёжа",
+                    name = "Bench press",
                     muscleGroup = MuscleGroup.CHEST,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercise_bench_press,
@@ -24,7 +24,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "2",
-                    name = "Приседания со штангой",
+                    name = "Barbell Squats",
                     muscleGroup = MuscleGroup.LEGS,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercis_icon_2,
@@ -33,7 +33,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "3",
-                    name = "Становая тяга",
+                    name = "Deadlift",
                     muscleGroup = MuscleGroup.BACK,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercise_icon_3,
@@ -42,7 +42,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "4",
-                    name = "Подтягивания",
+                    name = "Pull-ups",
                     muscleGroup = MuscleGroup.BACK,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercise_icon_4,
@@ -51,7 +51,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "5",
-                    name = "Армейский жим",
+                    name = "Army Bench Press",
                     muscleGroup = MuscleGroup.ARMS,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercise_bench_press,
@@ -60,7 +60,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "6",
-                    name = "Бег на дорожке",
+                    name = "Running on the track",
                     muscleGroup = MuscleGroup.CARDIO,
                     type = ExerciseType.TIME_DISTANCE,
                     iconRes = R.drawable.exercis_icon_2,
@@ -69,7 +69,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "7",
-                    name = "Скручивания на пресс",
+                    name = "Twisting on the press",
                     muscleGroup = MuscleGroup.ABS,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercise_icon_3,
@@ -78,7 +78,7 @@ class ExercisesRepository {
                 ),
                 Exercise(
                     id = "8",
-                    name = "Выпады с гантелями",
+                    name = "Dumbbell lunges",
                     muscleGroup = MuscleGroup.LEGS,
                     type = ExerciseType.WEIGHT_REPS,
                     iconRes = R.drawable.exercise_icon_4,

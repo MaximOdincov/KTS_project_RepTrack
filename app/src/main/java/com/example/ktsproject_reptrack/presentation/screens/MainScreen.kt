@@ -8,10 +8,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ktsproject_reptrack.presentation.components.ExerciseCard
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.ktsproject_reptrack.R
+import com.example.ktsproject_reptrack.presentation.components.BottomNavBar
+import com.example.ktsproject_reptrack.presentation.components.ExerciseCard
 import com.example.ktsproject_reptrack.presentation.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,27 +23,38 @@ import com.example.ktsproject_reptrack.presentation.viewmodel.MainViewModel
 fun MainScreen(
     viewModel: MainViewModel,
     onBackClick: () -> Unit,
+    onNavigateToNutrition: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    BackHandler {
-        onBackClick()
-    }
+    BackHandler { onBackClick() }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "RepTrack",
-                        fontWeight = FontWeight.Bold
+                        text = stringResource(R.string.auth_title),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        letterSpacing = 1.sp
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
+            )
+        },
+        bottomBar = {
+            BottomNavBar(
+                currentRoute = "main",
+                onNavigate = { route ->
+                    when (route) {
+                        "nutrition" -> onNavigateToNutrition()
+                    }
+                }
             )
         }
     ) { padding ->
@@ -51,9 +66,7 @@ fun MainScreen(
                         .padding(padding),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator(
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                 }
             }
 
@@ -65,7 +78,7 @@ fun MainScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Ошибка: ${uiState.error}",
+                        text = stringResource(R.string.exercises_error),
                         color = MaterialTheme.colorScheme.error
                     )
                 }

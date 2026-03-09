@@ -1,5 +1,6 @@
 package com.example.ktsproject_reptrack.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -7,69 +8,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkAccentOrange,
-    onPrimary = DarkTextOnAccent,
-    primaryContainer = DarkAccentOrange,
-    onPrimaryContainer = DarkTextPrimary,
+    primary = AppOrange,
+    onPrimary = AppTextOnAccent,
+    primaryContainer = AppOrange,
+    onPrimaryContainer = AppTextPrimary,
 
-    secondary = DarkAccentRed,
-    onSecondary = DarkTextOnAccent,
-    secondaryContainer = DarkAccentRed,
-    onSecondaryContainer = DarkTextPrimary,
+    secondary = AppOrange.copy(alpha = 0.8f),
+    onSecondary = AppTextOnAccent,
+    secondaryContainer = AppOrange.copy(alpha = 0.2f),
+    onSecondaryContainer = AppTextPrimary,
 
-    tertiary = DarkAccentGreen,
-    onTertiary = DarkTextOnAccent,
-    tertiaryContainer = DarkAccentGreen,
-    onTertiaryContainer = DarkTextPrimary,
+    background = AppBackground,
+    onBackground = AppTextPrimary,
 
-    background = DarkBackground,
-    onBackground = DarkTextPrimary,
+    surface = AppSurface,
+    onSurface = AppTextPrimary,
+    surfaceVariant = AppSurface,
+    onSurfaceVariant = AppTextPrimary.copy(alpha = 0.7f),
 
-    surface = DarkCard,
-    onSurface = DarkTextPrimary,
-    surfaceVariant = DarkCardElevated,
-    onSurfaceVariant = DarkTextSecondary,
-
-    outline = DarkTextSecondary,
-    error = DarkAccentRed,
-    onError = DarkTextOnAccent
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = LightAccentOrange,
-    onPrimary = LightTextOnAccent,
-    primaryContainer = LightAccentOrange,
-    onPrimaryContainer = LightTextPrimary,
-
-    secondary = LightAccentRed,
-    onSecondary = LightTextOnAccent,
-    secondaryContainer = LightAccentRed,
-    onSecondaryContainer = LightTextPrimary,
-
-    tertiary = LightAccentGreen,
-    onTertiary = LightTextOnAccent,
-    tertiaryContainer = LightAccentGreen,
-    onTertiaryContainer = LightTextPrimary,
-
-    background = LightBackground,
-    onBackground = LightTextPrimary,
-
-    surface = LightCard,
-    onSurface = LightTextPrimary,
-    surfaceVariant = LightCard,
-    onSurfaceVariant = LightTextSecondary,
-
-    outline = LightTextSecondary,
-    error = LightAccentRed,
-    onError = LightTextOnAccent
+    outline = AppTextPrimary.copy(alpha = 0.3f),
+    error = AppError,
+    onError = AppTextOnAccent
 )
 
 @Composable
 fun KTSProjectRepTrackTheme(
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val colorScheme = DarkColorScheme
+
     MaterialTheme(
-        colorScheme = DarkColorScheme,
+        colorScheme = colorScheme,
         typography = Typography,
         content = content
     )

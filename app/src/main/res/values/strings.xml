@@ -1,3 +1,53 @@
 <resources>
-    <string name="app_name">KTS project - RepTrack</string>
+    <string name="app_name">RepTrack</string>
+
+    <!-- Auth -->
+    <string name="auth_title">RepTrack</string>
+    <string name="auth_sign_in">Sign In</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_welcome">Welcome back</string>
+    <string name="auth_error">Authentication failed</string>
+    <string name="auth_continue">Continue</string>
+
+    <!-- Exercises -->
+    <string name="exercises_title">Exercises</string>
+    <string name="exercises_weight_reps">Weight/Reps</string>
+    <string name="exercises_time_distance">Time/Distance</string>
+    <string name="exercises_error">Error loading exercises</string>
+    <string name="exercises_empty">No exercises found</string>
+
+    <!-- Nutrition -->
+    <string name="nutrition_title">Nutrition</string>
+    <string name="nutrition_subtitle">Calculate Macros</string>
+    <string name="nutrition_description">Enter product name and amount in grams</string>
+    <string name="nutrition_product_hint">Product name</string>
+    <string name="nutrition_product_placeholder">e.g. apple, chicken breast</string>
+    <string name="nutrition_grams_hint">Grams</string>
+    <string name="nutrition_grams_placeholder">100</string>
+    <string name="nutrition_calculate">Calculate</string>
+    <string name="nutrition_new_calculation">New Calculation</string>
+    <string name="nutrition_calories">Calories</string>
+    <string name="nutrition_macros">Macros</string>
+    <string name="nutrition_proteins">Proteins</string>
+    <string name="nutrition_carbs">Carbs</string>
+    <string name="nutrition_fat">Fat</string>
+    <string name="nutrition_loading">Searching…</string>
+    <string name="nutrition_searching">Searching product…</string>
+    <string name="nutrition_retry">Retry</string>
+    <string name="nutrition_error_empty">Please enter a product name</string>
+    <string name="nutrition_error_invalid">Please enter a valid amount</string>
+    <string name="nutrition_error_not_found">Product not found. Try another name</string>
+    <string name="nutrition_error_network">Network error. Check your connection</string>
+    <string name="nutrition_error_api">API temporarily unavailable. Try again later</string>
+
+    <!-- Navigation -->
+    <string name="nav_exercises">Exercises</string>
+    <string name="nav_nutrition">Nutrition</string>
+
+    <!-- Common -->
+    <string name="common_error">Error</string>
+    <string name="common_retry">Retry</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_clear">Clear</string>
 </resources>
