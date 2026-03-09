@@ -2,28 +2,22 @@ package com.example.ktsproject_reptrack.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.ktsproject_reptrack.presentation.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    onLoginClick: () -> Unit,
+    viewModel: LoginViewModel,
     modifier: Modifier = Modifier
 ) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
         modifier = modifier
@@ -45,40 +39,58 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = uiState.username,
+                onValueChange = { viewModel.onUsernameChanged(it) },
                 label = { Text("Email") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isLoading
             )
 
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = uiState.password,
+                onValueChange = { viewModel.onPasswordChanged(it) },
                 label = { Text("Password") },
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isLoading
             )
+
+            if (uiState.error != null) {
+                Text(
+                    text = uiState.error.toString(),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = onLoginClick,
+                onClick = { viewModel.onLoginClick() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(56.dp),
+                enabled = uiState.isLoginButtonActive && !uiState.isLoading
             ) {
-                Text(
-                    text = "Login",
-                    style = MaterialTheme.typography.titleMedium
-                )
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                } else {
+                    Text(
+                        text = "Login",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
             }
         }
     }

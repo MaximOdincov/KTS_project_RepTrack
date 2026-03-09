@@ -23,7 +23,11 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(Color.Black)
                 ) {
-                    AppNavigation()
+                    AppNavigation(
+                        onFinish = {
+                            finishAffinity()
+                        }
+                    )
                 }
             }
         }
